@@ -1,0 +1,8 @@
+.DS_store
+.vscode
+blog-app/node-modules/
+blog-app/dist/
+blog/__pycache__/
+blog1/__pycache__/
+db.sqlite3
+.env

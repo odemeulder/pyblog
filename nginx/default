@@ -1,0 +1,23 @@
+upstream django {
+       server 127.0.0.1:8000;
+}
+
+server {
+       listen 80;
+       listen [::]:80;
+       server_name olivier.demeulder.us;
+       root /var/www/pyblog/dist/;
+       index index.html;
+       location / {
+           try_files $uri $uri/ =404;
+       }
+       location ~ ^/(post|posts) {
+           try_files $uri $uri/ =404;
+       }
+       location ~ ^/(api|admin) {
+            proxy_set_header X-Forwarded_For $proxy_add_x_forwarded_for;
+            proxy_set_header Host $http_host;
+            proxy_redirect off;
+            proxy_pass http://django;
+       }
+}
